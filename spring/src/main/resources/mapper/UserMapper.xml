@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.UserMapper">
+    <select id="getUserList"  resultType="User">
+        select * from user order by type ASC
+    </select>
+    <select id="getLikeName" parameterType="String" resultType="User">
+        select * from user where name like #{name} order by type ASC
+    </select>
+    <select id="getByName" parameterType="String" resultType="User">
+        select * from user where name = #{name}
+    </select>
+    <insert id="save" parameterType="User">
+        insert into user(name,password,sex,type,create_time)
+        value (#{name},#{password},#{sex},#{type},#{createTime})
+    </insert>
+    <update id="update" parameterType="User">
+        update user
+        set name=#{name},password=#{password},sex=#{sex},type=#{type},status=#{status},class_id=#{classId} where id=#{id}
+    </update>
+    <delete id="delete" parameterType="User">
+        delete from user where id=#{id}
+    </delete>
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.UClassMapper">
+    <select id="getClassList" resultType="UClass">
+        select * from u_class
+    </select>
+    <select id="getLikeName" parameterType="String" resultType="UClass">
+        select * from u_class where name like #{name}
+    </select>
+    <insert id="save" parameterType="UClass">
+        insert into u_class(name)
+            value (#{name})
+    </insert>
+    <update id="update" parameterType="UClass">
+        update u_class
+        set name=#{name} where id=#{id}
+    </update>
+    <delete id="delete" parameterType="UClass">
+        delete from u_class where name=#{name}
+    </delete>
+</mapper>

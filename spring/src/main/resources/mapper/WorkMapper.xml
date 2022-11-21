@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.WorkMapper">
+
+    <select id="getWorkList" resultType="work">
+        select * from work
+    </select>
+
+    <select id="getWorkListByClass" resultType="work">
+        select w.id,w.name,w.text,w.end_time from work w
+        left join  s_work s on w.id = s.work_id and s.user_id=#{userId} and w.class_id=#{classId}
+        where  s.work_id is null ;
+    </select>
+
+    <select id="getWorkListByClassF" resultType="work">
+        select w.id,w.name,w.text,w.end_time from work w
+        left join  s_work s on w.id = s.work_id
+        where s.user_id=#{userId} and w.class_id=#{classId} ;
+    </select>
+
+    <select id="getWorkListByCreate" resultType="com.spring.dto.WorkDto">
+        select w.id,w.name,w.class_id,text,create_time,end_time,uc.name className
+        from work w join u_class uc on w.class_id = uc.id where w.create_id=#{createId}
+    </select>
+
+    <select id="getByName" parameterType="String" resultType="work">
+        select * from work where name like #{name}
+    </select>
+
+    <insert id="save" parameterType="work">
+        insert into work(name,text,create_id,create_time,end_time,class_id)
+            value (#{name},#{text},#{createId},#{createTime},#{endTime},#{classId})
+    </insert>
+
+    <update id="update" parameterType="work">
+        update work
+        set name=#{name},text=#{text},end_time=#{endTime},class_id=#{classId} where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="work">
+        delete from work where id=#{id}
+    </delete>
+
+</mapper>

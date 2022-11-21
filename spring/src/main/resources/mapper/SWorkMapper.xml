@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.SWorkMapper">
+    <select id="getSWorkList" resultType="com.spring.dto.SWorkDto">
+        select s.id,s.name,s.create_time,path,u.name userName from s_work s join user u on s.user_id = u.id where work_id=#{workId}
+    </select>
+
+    <select id="getUnFinish" parameterType="Long" resultType="sWork">
+        select u.name from user u left join s_work sw on u.id = sw.user_id and sw.work_id=#{workId}
+        where u.type=2 and class_id=#{classId} and sw.id is null
+    </select>
+
+    <insert id="save" parameterType="sWork">
+        insert into s_work(name,work_id,user_id,path,create_time)
+            value (#{name},#{workId},#{userId},#{path},#{createTime})
+    </insert>
+    <update id="update" parameterType="sWork">
+        update s_work
+        set name=#{name} where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="sWork">
+        delete from s_work where id=#{id}
+    </delete>
+
+</mapper>
