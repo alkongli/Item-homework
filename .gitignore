@@ -2,7 +2,6 @@
 /target/
 /.idea/
 .git
-logs
 rebel.xml
 target/
 !.mvn/wrapper/maven-wrapper.jar

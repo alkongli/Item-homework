@@ -7,11 +7,6 @@ spring:
       max-request-size: 100MB
 
   datasource:
-    Druid:
-      mysql:
-#         解决druid 日志报错：discard long time none received connection:xxx
-        usePingMethod=false
-
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/Item?useSSL=false&useUnicode=true&characterEncoding=UTF8&serverTimezone=Asia/Shanghai
     username: wai
