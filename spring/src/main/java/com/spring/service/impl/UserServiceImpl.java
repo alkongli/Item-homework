@@ -29,5 +29,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.update(user);
     };
 
+    public int updatePassword(User user){ return userMapper.updatePassword(user);}
+
     public int delete(Long id){return  userMapper.delete(id);};
 }

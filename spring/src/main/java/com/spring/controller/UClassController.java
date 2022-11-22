@@ -5,6 +5,7 @@ import com.spring.entity.UClass;
 
 import com.spring.service.UClassService;
 
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RequestMapping("/uClass")
 @RestController
+@Api(tags="班级的相关接口")
 public class UClassController {
     @Resource
     private UClassService UClassService;

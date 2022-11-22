@@ -4,6 +4,8 @@ import com.spring.common.R;
 import com.spring.dto.SWorkDto;
 import com.spring.entity.SWork;
 import com.spring.service.SWorkService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,7 @@ import java.util.List;
 
 @RequestMapping("/sWork")
 @RestController
+@Api(tags="学生提交的相关接口")
 public class SWorkController {
 
     @Resource
@@ -34,11 +37,12 @@ public class SWorkController {
     }
 
     /**
-     * 查询为提交作业学生学号
+     * 查询未提交作业学生学号
      * @param classId
      * @param workId
      * @return
      */
+    @ApiOperation(value = "查询未提交作业学生学号")
     @GetMapping("/unFinish")
     public R<List<SWork>> unFinish(Long classId,Long workId){
 

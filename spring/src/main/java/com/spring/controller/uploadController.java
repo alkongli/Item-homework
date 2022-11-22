@@ -2,6 +2,10 @@ package com.spring.controller;
 
 import com.spring.common.R;
 import com.spring.entity.SWork;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.ResourceUtils;
@@ -16,6 +20,7 @@ import java.io.IOException;
 
 @Slf4j
 @RestController
+@Api(tags="上传下载的相关接口")
 public class uploadController {
 
 //    在yml配置的路径
@@ -27,6 +32,7 @@ public class uploadController {
      * @param file
      * @return
      */
+    @ApiOperation(value = "文件上传")
     @PostMapping("/upload")
     public R<String> upload(MultipartFile file,String workId, String userName){
 //        log.info("提交信息:file1={}",file.getSize());
@@ -48,12 +54,17 @@ public class uploadController {
     }
 
     /**
-     *     * 文件下载
+     * 文件下载
      * @param fileName
      * @param pathName
      * @throws IOException
      */
+    @ApiOperation(value = "文件下载")
     @GetMapping("/download")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fileName",value = "sWork中name的值"),
+            @ApiImplicitParam(name = "pathName",value = "sWork中path的值"),
+    })
     public void download(String fileName,String pathName,HttpServletResponse response) throws IOException {
 
 

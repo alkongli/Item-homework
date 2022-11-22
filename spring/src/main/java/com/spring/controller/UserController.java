@@ -1,19 +1,24 @@
 package com.spring.controller;
 
+import com.spring.common.BaseContext;
 import com.spring.common.R;
 import com.spring.entity.User;
 import com.spring.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 @RequestMapping("/user")
 @RestController
+@Api(tags="用户的相关接口")
 public class UserController {
 
     @Resource
@@ -58,7 +63,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/login")
-    public R<User> login(@RequestBody User user){
+    public R<User> login(HttpServletRequest request, @RequestBody User user){
 //        根据name查找账号
         User u=userService.getByName(user.getName());
 
@@ -68,7 +73,16 @@ public class UserController {
             return R.error("密码错误");
         if(u.getStatus()==1)
             return R.error("账号已被封");
+
+//        登录成功
+        request.getSession().setAttribute("user",u.getId());
         return R.success(u);
+    }
+
+    @PostMapping("/logout")
+    public R<String> logout(HttpServletRequest request){
+        request.getSession().removeAttribute("user");
+        return R.success("已退出登录");
     }
 
     /**
@@ -88,10 +102,24 @@ public class UserController {
      * @param user
      * @return
      */
+    @ApiOperation(value = "管理员修改用户信息")
     @PutMapping
     public R<String> update(@RequestBody User user){
         userService.update(user);
         return R.success("修改成功");
+    }
+
+    /**
+     * 修改密码
+     * @param user
+     * @return
+     */
+    @ApiOperation(value = "用户修改密码")
+    @PutMapping("/password")
+    public R<String> updatePassword(@RequestBody User user){
+        user.setId(BaseContext.getCurrentId());
+        userService.updatePassword(user);
+        return R.success("密码修改成功");
     }
 
     /**
@@ -104,6 +132,7 @@ public class UserController {
         userService.delete(id);
         return R.success("删除成功");
     }
+
 
 
 }

@@ -1,10 +1,12 @@
 package com.spring.entity;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
+@ApiModel("学生提交的作业")
 public class SWork {
     private static final long serialVersionUID = 1L;
 

@@ -4,6 +4,8 @@ import com.spring.common.R;
 import com.spring.dto.WorkDto;
 import com.spring.entity.Work;
 import com.spring.service.WorkService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 
 @RequestMapping("/work")
 @RestController
+@Api(tags="老师发布作业的相关接口")
 public class WorkController {
     @Resource
     private WorkService workService;
@@ -22,11 +25,12 @@ public class WorkController {
     private StringRedisTemplate stringRedisTemplate;
 
     /**
-     * 学生查看班级作业
+     * 学生查看未完成的班级作业
      * @param classId
      * @param userId
      * @return
      */
+    @ApiOperation(value = "学生查看未完成的班级作业")
     @GetMapping("/sList")
     public R<List<Work>> sList(Long classId, Long userId){
 
@@ -41,6 +45,7 @@ public class WorkController {
      * @param createId
      * @return
      */
+    @ApiOperation(value = "教师查看发布的作业情况")
     @GetMapping("/tList")
     public R<List<WorkDto>> tList(Long createId){
 
@@ -66,6 +71,7 @@ public class WorkController {
      * @param userId
      * @return
      */
+    @ApiOperation(value = "学生查看已完成作业情况")
     @GetMapping("finish")
     public R<List<Work>> finish(Long classId, Long userId){
 //            查询当前班级下,学生完成的作业

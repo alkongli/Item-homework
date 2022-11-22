@@ -4,8 +4,10 @@ package com.spring.dto;
 import com.spring.entity.SWork;
 import com.spring.entity.Work;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class WorkDto extends Work {
 //  作业截止天数或作业延长天数
     private Integer days;

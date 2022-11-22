@@ -20,6 +20,11 @@
         update user
         set name=#{name},password=#{password},sex=#{sex},type=#{type},status=#{status},class_id=#{classId} where id=#{id}
     </update>
+
+    <update id="updatePassword" parameterType="User">
+        update user
+        set password=#{password} where id=#{id}
+    </update>
     <delete id="delete" parameterType="User">
         delete from user where id=#{id}
     </delete>

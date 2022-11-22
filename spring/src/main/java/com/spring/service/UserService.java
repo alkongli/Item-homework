@@ -13,5 +13,7 @@ public interface UserService {
 
     public int update(User user);
 
+    public int updatePassword(User user);
+
     public int delete(Long id);
 }
